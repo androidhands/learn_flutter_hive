@@ -53,11 +53,23 @@ class TestScreen extends StatelessWidget {
                 child: Text('Get At')),
             ElevatedButton(
                 onPressed: () {
-                  String? name = box.get("name");
-                  int? age = box.get("age");
-
-                  print(
-                      'Name: $name, Age: $age 9: ${box.get(9)} 1: ${box.get(1)} 2: ${box.get(2)} 3: ${box.get(3)}   ');
+                  // this method is used to add values only without using a key
+                  // it searchs for the maximum key in the box and adds the value to the next key(int)
+                  box.add("Boody");
+                  box.addAll([
+                    9,
+                    "Ahmed",
+                    3.14,
+                    [1, 2, 3],
+                    true
+                  ]);
+                },
+                child: Text('Add And Add All')),
+            ElevatedButton(
+                onPressed: () {
+                  for (var k in box.keys) {
+                    print("Key: $k, Value: ${box.get(k)}}");
+                  }
                 },
                 child: Text('Display Data')),
           ],
