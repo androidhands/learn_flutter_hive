@@ -72,6 +72,11 @@ class TestScreen extends StatelessWidget {
                   }
                 },
                 child: Text('Display Data')),
+            ElevatedButton(
+                onPressed: () {
+                  print(box.values);
+                },
+                child: Text('Display Box Values')),
           ],
         ),
       ),
