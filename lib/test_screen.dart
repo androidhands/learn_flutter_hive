@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class TestScreen extends StatelessWidget {
-  const TestScreen({Key? key}) : super(key: key);
-
+  TestScreen({Key? key}) : super(key: key);
+  late Box box;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,15 +15,25 @@ class TestScreen extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () async {
-                  await Hive.openBox<String>("test");
+                  box = await Hive.openBox("test");
                 },
                 child: Text('Open Hive Box')),
             ElevatedButton(
                 onPressed: () {
-                  Box textBox = Hive.box<String>("test");
-                  print(textBox.isOpen);
+                  // the put method is a future but can be used without await
+                  // it add or update data in the box so in key not added it will create a new key
+                  // if the key is already present it will update the value
+                  box.put("name", "Abdelhamid");
+                  box.put("age", 35);
                 },
-                child: Text('Access Hive Box'))
+                child: Text('Put Data')),
+            ElevatedButton(
+                onPressed: () {
+                  String? name = box.get("name");
+                  int? age = box.get("age");
+                  print('Name: $name, Age: $age');
+                },
+                child: Text('Display Data')),
           ],
         ),
       ),
