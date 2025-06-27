@@ -27,15 +27,37 @@ class TestScreen extends StatelessWidget {
                   box.put("age", 35); */
                   box.putAll({
                     "name": "Abdelhamid Ahmed",
+                    9: true,
                     "age": 30,
+                    1: 'Test',
+                    2: 3.14,
+                    3: [1, 2, 3],
                   });
                 },
                 child: Text('Put Data')),
             ElevatedButton(
                 onPressed: () {
+                  // the putAt method is used to put data at a specific index
+                  // it will not create a new key if the key is not present
+                  // it will update the value at the index if the index is already present
+                  // it will not create a new index if the index is not present
+                  // so it will not create a new key if the key is not present
+                  // it collect the int key and arrarngs them in array and used the index to put the value
+                  box.putAt(1, 'Abdo');
+                },
+                child: Text('Put At')),
+            ElevatedButton(
+                onPressed: () {
+                  box.getAt(0);
+                },
+                child: Text('Get At')),
+            ElevatedButton(
+                onPressed: () {
                   String? name = box.get("name");
                   int? age = box.get("age");
-                  print('Name: $name, Age: $age');
+
+                  print(
+                      'Name: $name, Age: $age 9: ${box.get(9)} 1: ${box.get(1)} 2: ${box.get(2)} 3: ${box.get(3)}   ');
                 },
                 child: Text('Display Data')),
           ],
