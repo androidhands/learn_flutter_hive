@@ -15,7 +15,7 @@ class TestScreen extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () async {
-                  box = await Hive.openBox("test");
+                  box = await Hive.openBox("ref_and_value_box");
                 },
                 child: Text('Open Hive Box')),
             ElevatedButton(
@@ -25,14 +25,15 @@ class TestScreen extends StatelessWidget {
                   // if the key is already present it will update the value
                   /* box.put("name", "Abdelhamid");
                   box.put("age", 35); */
-                  box.putAll({
+                  box.put(1, [1, 2, 3]);
+                  /*  box.putAll({
                     "name": "Abdelhamid Ahmed",
                     9: true,
                     "age": 30,
                     1: 'Test',
                     2: 3.14,
                     3: [1, 2, 3],
-                  });
+                  }); */
                 },
                 child: Text('Put Data')),
             ElevatedButton(
@@ -48,7 +49,16 @@ class TestScreen extends StatelessWidget {
                 child: Text('Put At')),
             ElevatedButton(
                 onPressed: () {
-                  box.getAt(0);
+                  // hive make a copy of box from local storage and add it to Ram
+                  // in dart primitives are passed by value
+                  // and Objects are passed by reference
+                  // so when change value of entries of list it also changed in the box values as reference assignement
+                  // if made hot restart all data will be lost and hive call a new instance of the box with old data
+
+                  List list = box.get(1);
+                  list[0] = 100;
+                  print(box.get(1));
+                  print(list);
                 },
                 child: Text('Get At')),
             ElevatedButton(
