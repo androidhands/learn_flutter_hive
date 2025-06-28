@@ -20,33 +20,27 @@ class WordModel {
   });
 
   WordModel addSimilarWord(String word, bool isArabic) {
-    List<String> newSimilarWords = [];
-    if (isArabic) {
-      newSimilarWords = [...arabicSimilarWords, word];
-    } else {
-      newSimilarWords = [...englishSimilarWords, word];
-    }
-
-    return WordModel(
-      indexAtDatabase: indexAtDatabase,
-      text: text,
-      isArabic: isArabic,
-      colorCode: colorCode,
-      arabicSimilarWords: isArabic ? newSimilarWords : arabicSimilarWords,
-      englishSimilarWords: isArabic ? englishSimilarWords : newSimilarWords,
-      arabiceExamples: arabiceExamples,
-      englishExamples: englishExamples,
-    );
+    List<String> newSimilarWords = _initializeSimilarWords(isArabic);
+    newSimilarWords.add(word);
+    return _getWordAfterCheckSimilarWords(newSimilarWords, isArabic);
   }
 
   WordModel deleteSimilarWord(int index, bool isArabic) {
-    List<String> newSimilarWords = [];
-    if (isArabic) {
-      newSimilarWords = [...arabicSimilarWords];
-    } else {
-      newSimilarWords = [...englishSimilarWords];
-    }
+    List<String> newSimilarWords = _initializeSimilarWords(isArabic);
     newSimilarWords.removeAt(index);
+    return _getWordAfterCheckSimilarWords(newSimilarWords, isArabic);
+  }
+
+  List<String> _initializeSimilarWords(bool isArabic) {
+    if (isArabic) {
+      return [...arabicSimilarWords];
+    } else {
+      return [...englishSimilarWords];
+    }
+  }
+
+  WordModel _getWordAfterCheckSimilarWords(
+      List<String> newSimilarWords, bool isArabic) {
     return WordModel(
       indexAtDatabase: indexAtDatabase,
       text: text,
