@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:learn_flutter_hive/model/word_type_adapter.dart';
+import 'package:learn_flutter_hive/utils/app_constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   Hive.registerAdapter(WordTypeAdapter());
+  await Hive.openBox(AppConstants.boxName);
   runApp(const MyApp());
 }
 
