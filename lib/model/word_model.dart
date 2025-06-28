@@ -38,4 +38,24 @@ class WordModel {
       englishExamples: englishExamples,
     );
   }
+
+  WordModel deleteSimilarWord(int index, bool isArabic) {
+    List<String> newSimilarWords = [];
+    if (isArabic) {
+      newSimilarWords = [...arabicSimilarWords];
+    } else {
+      newSimilarWords = [...englishSimilarWords];
+    }
+    newSimilarWords.removeAt(index);
+    return WordModel(
+      indexAtDatabase: indexAtDatabase,
+      text: text,
+      isArabic: isArabic,
+      colorCode: colorCode,
+      arabicSimilarWords: isArabic ? newSimilarWords : arabicSimilarWords,
+      englishSimilarWords: isArabic ? englishSimilarWords : newSimilarWords,
+      arabiceExamples: arabiceExamples,
+      englishExamples: englishExamples,
+    );
+  }
 }
