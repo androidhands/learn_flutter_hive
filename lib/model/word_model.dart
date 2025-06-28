@@ -19,6 +19,18 @@ class WordModel {
     this.englishExamples = const [],
   });
 
+  WordModel deleteExample(int index, bool isArabic) {
+    List<String> newExampleWords = _initializeNewExampleWords(isArabic);
+    newExampleWords.removeAt(index);
+    return _getWordAfterCheckExampleWords(newExampleWords, isArabic);
+  }
+
+  WordModel addExample(String example, bool isArabic) {
+    List<String> newExampleWords = _initializeNewExampleWords(isArabic);
+    newExampleWords.add(example);
+    return _getWordAfterCheckExampleWords(newExampleWords, isArabic);
+  }
+
   WordModel addSimilarWord(String word, bool isArabic) {
     List<String> newSimilarWords = _initializeSimilarWords(isArabic);
     newSimilarWords.add(word);
@@ -39,6 +51,14 @@ class WordModel {
     }
   }
 
+  List<String> _initializeNewExampleWords(bool isArabic) {
+    if (isArabic) {
+      return [...arabiceExamples];
+    } else {
+      return [...englishExamples];
+    }
+  }
+
   WordModel _getWordAfterCheckSimilarWords(
       List<String> newSimilarWords, bool isArabic) {
     return WordModel(
@@ -50,6 +70,20 @@ class WordModel {
       englishSimilarWords: isArabic ? englishSimilarWords : newSimilarWords,
       arabiceExamples: arabiceExamples,
       englishExamples: englishExamples,
+    );
+  }
+
+  WordModel _getWordAfterCheckExampleWords(
+      List<String> newExapleWords, bool isArabic) {
+    return WordModel(
+      indexAtDatabase: indexAtDatabase,
+      text: text,
+      isArabic: isArabic,
+      colorCode: colorCode,
+      arabicSimilarWords: arabicSimilarWords,
+      englishSimilarWords: englishSimilarWords,
+      arabiceExamples: isArabic ? newExapleWords : arabiceExamples,
+      englishExamples: isArabic ? englishExamples : newExapleWords,
     );
   }
 }
