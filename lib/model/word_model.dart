@@ -19,5 +19,23 @@ class WordModel {
     this.englishExamples = const [],
   });
 
+  WordModel addSimilarWord(String word, bool isArabic) {
+    List<String> newSimilarWords = [];
+    if (isArabic) {
+      newSimilarWords = [...arabicSimilarWords, word];
+    } else {
+      newSimilarWords = [...englishSimilarWords, word];
+    }
 
+    return WordModel(
+      indexAtDatabase: indexAtDatabase,
+      text: text,
+      isArabic: isArabic,
+      colorCode: colorCode,
+      arabicSimilarWords: isArabic ? newSimilarWords : arabicSimilarWords,
+      englishSimilarWords: isArabic ? englishSimilarWords : newSimilarWords,
+      arabiceExamples: arabiceExamples,
+      englishExamples: englishExamples,
+    );
+  }
 }
