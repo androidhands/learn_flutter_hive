@@ -1,5 +1,4 @@
 class WordModel {
-  final int indexAtDatabase;
   final String text;
   final bool isArabic;
   final int colorCode;
@@ -9,7 +8,6 @@ class WordModel {
   final List<String> englishExamples;
 
   WordModel({
-    required this.indexAtDatabase,
     required this.text,
     required this.isArabic,
     required this.colorCode,
@@ -18,19 +16,6 @@ class WordModel {
     this.arabiceExamples = const [],
     this.englishExamples = const [],
   });
-  /// TODO: Test Hive database with index key, check can we use key as index
-  WordModel decrementIndex() {
-    return WordModel(
-      indexAtDatabase: indexAtDatabase - 1,
-      text: text,
-      isArabic: isArabic,
-      colorCode: colorCode,
-      arabicSimilarWords: arabicSimilarWords,
-      englishSimilarWords: englishSimilarWords,
-      arabiceExamples: arabiceExamples,
-      englishExamples: englishExamples,
-    );
-  }
 
   WordModel deleteExample(int index, bool isArabic) {
     List<String> newExampleWords = _initializeNewExampleWords(isArabic);
@@ -75,7 +60,6 @@ class WordModel {
   WordModel _getWordAfterCheckSimilarWords(
       List<String> newSimilarWords, bool isArabic) {
     return WordModel(
-      indexAtDatabase: indexAtDatabase,
       text: text,
       isArabic: isArabic,
       colorCode: colorCode,
@@ -89,7 +73,6 @@ class WordModel {
   WordModel _getWordAfterCheckExampleWords(
       List<String> newExapleWords, bool isArabic) {
     return WordModel(
-      indexAtDatabase: indexAtDatabase,
       text: text,
       isArabic: isArabic,
       colorCode: colorCode,

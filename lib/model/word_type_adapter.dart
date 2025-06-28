@@ -8,7 +8,6 @@ class WordTypeAdapter extends TypeAdapter<WordModel> {
   @override
   WordModel read(BinaryReader reader) {
     return WordModel(
-      indexAtDatabase: reader.readInt(),
       text: reader.readString(),
       isArabic: reader.readBool(),
       colorCode: reader.readInt(),
@@ -21,7 +20,6 @@ class WordTypeAdapter extends TypeAdapter<WordModel> {
 
   @override
   void write(BinaryWriter writer, WordModel obj) {
-    writer.writeInt(obj.indexAtDatabase);
     writer.writeString(obj.text);
     writer.writeBool(obj.isArabic);
     writer.writeInt(obj.colorCode);
